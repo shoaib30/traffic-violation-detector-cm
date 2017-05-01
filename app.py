@@ -19,6 +19,7 @@ counterFile = open("counter.txt", "r+")
 ct = int(counterFile.read())
 print "File Counter: " + str(ct)
 counterFile.seek(0)
+imageLocation = "images/"
 
 dummyResposne ={"module":"camera","timestamp":1486836445,"file_name":"file_300795","file_extension":"jpeg"}
 
@@ -32,7 +33,7 @@ def cameraTrigger():
     camera.hflip = True
     camera.vflip = True
     count = counterFile.read();
-    fileName = "file_" + count
+    fileName = imageLocation + "file_" + count
     camera.capture(fileName + ".jpg")
     timestamp = time.time()
     response = {}
@@ -40,7 +41,7 @@ def cameraTrigger():
     response["timestamp"] = timestamp
     response["file_name"] = fileName
     response["file_extension"] = "jpg"
-    
+
     counterFile.seek(0)
     counterFile.write(str(int(count) + 1))
     counterFile.seek(0)
